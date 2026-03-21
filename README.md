@@ -1,5 +1,4 @@
 # 🚗 Privacy-Preserving Autonomous Driving con YOLOv9
-**Un approccio "Data-Centric" per l'Object Detection su Lenti Fisheye**
 
 Questo repository contiene il codice sorgente, i notebook sperimentali e i modelli addestrati (pesi `.pt`) del progetto **PP4AV-YOLOv9**. 
 L'obiettivo del progetto è l'adattamento dell'architettura state-of-the-art **YOLOv9** all'anonimizzazione dei dati in domini ottici severi.
