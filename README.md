@@ -19,12 +19,16 @@ Questo progetto indaga se YOLOv9 possa eguagliare o superare le metriche di una 
 ```
 Il tutto utilizzando esclusivamente il dataset PP4AV, senza ricorrere a enormi moli di video esterni o tecniche di "Knowledge Distillation", ma affidandosi alla *Data Efficiency*.
 
+---
+
 ## 📊 Il Dataset (PP4AV)
 Il progetto si basa sul dataset **PP4AV** (Privacy-Preserving for Autonomous Vehicles).
 * È composto da **3.447 immagini** annotate, campionate da video di guida in sei città europee.
 * Include scenari complessi come la guida notturna (Netherlands_night) e immagini con distorsione ottica (Fisheye).
 * Presenta un forte sbilanciamento: le Targhe rappresentano il 67.3% delle annotazioni, i Volti il 32.7%.
 * Si tratta di un task di *Small Object Detection* estremo (l'area media di una targa è dello 0.0634% rispetto all'immagine).
+
+---
 
 ## 📂 Struttura del Repository
 
@@ -53,6 +57,7 @@ Il progetto si basa sul dataset **PP4AV** (Privacy-Preserving for Autonomous Veh
    ┣ 📜 pp4av-test-yolov9-split3.ipynb
    ┗ 📜 best.pt                     # Pesi del modello finale (Definitivo)
 ```
+---
 
 ## 🔬 Metodologia: I Tre Cicli Sperimentali
 Il flusso di lavoro si articola in tre fasi:
@@ -61,6 +66,7 @@ Il flusso di lavoro si articola in tre fasi:
 2. **Ciclo 2 (Mixed-Domain):** addestramento su un set misto (lineare e grandangolare). Ha curato l'overfitting geometrico per le targhe (AP 83.31%), ma la classe "Volto" ha registrato un calo rispetto alla baseline (AP 43.68%) a causa della difficoltà geometrica combinata allo sbilanciamento.
 3. **Ciclo 3 (Data-Centric):** introduzione della generazione sintetica tramite la libreria Albumentations per applicare distorsioni a barile (OpticalDistortion). A questo si aggiunge un bilanciamento della funzione di Loss (cls = 1.5) per forzare il modello a concentrarsi sulla classe minoritaria.
 
+---
 
 ## ⚙️ Guida passo-passo alla Riproducibilità
 
@@ -84,3 +90,16 @@ Per riprodurre il modello finale (Approccio Data-Centric), segui questo ordine r
 
 ### 4. Utilizzo Immediato (Inference)
 Se desideri saltare la fase di addestramento e testare subito le capacità del modello su tue immagini, puoi caricare il file `best.pt` fornito nella cartella del Ciclo 3 e passarlo direttamente al modello YOLOv9 tramite la libreria `ultralytics`.
+
+---
+
+## 🛠️ Librerie e Dipendenze
+
+Questo progetto è stato sviluppato e testato in ambiente Python. Per riprodurre gli esperimenti in locale o su macchine virtuali, è necessario installare le seguenti librerie principali.
+
+Le dipendenze fondamentali utilizzate nel codice includono:
+* **ultralytics**: per il caricamento, il "fine-tuning" e la fase di inferenza del modello YOLOv9.
+* **albumentations**: per la generazione sintetica ("Data Augmentation") e le distorsioni ottiche avanzate ("OpticalDistortion").
+* **matplotlib** e **seaborn**: per la visualizzazione dei dati e dei grafici nella EDA.
+* **pandas** e **numpy**: per la manipolazione dei file di testo e dei dati strutturati.
+* **PyYAML**: per la creazione e la gestione dei file di configurazione ".yaml" richiesti da YOLO.
